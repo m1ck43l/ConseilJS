@@ -1,4 +1,4 @@
-import Transport from '@ledgerhq/hw-transport-node-hid';
+import Transport from '@ledgerhq/hw-transport-u2f';
 
 import { TezosMessageUtils } from '../../chain/tezos/TezosMessageUtil';
 import { HardwareDeviceType } from "../../types/wallet/HardwareDeviceType";
