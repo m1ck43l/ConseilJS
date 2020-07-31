@@ -1,6 +1,9 @@
 import FetchSelector from './utils/FetchSelector';
+import DeviceSelector from './utils/DeviceSelector';
 import LogSelector from './utils/LoggerSelector';
+import { TezosLedgerWallet } from './identity/tezos/TezosLedgerWallet';
 
+DeviceSelector.setLedgerUtils(TezosLedgerWallet);
 FetchSelector.setFetch(window.fetch);
 LogSelector.setLogger(console);
 
@@ -19,6 +22,7 @@ export * from './chain/tezos/contracts/Tzip7ReferenceTokenHelper';
 export * from './chain/tezos/contracts/TzbtcTokenHelper';
 
 export * from './identity/tezos/TezosWalletUtil';
+export * from "./identity/tezos/TezosLedgerWallet";
 export * from './identity/tezos/TezosFileWallet';
 
 export * from './reporting/tezos/TezosConseilClient';

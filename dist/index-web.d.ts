@@ -12,6 +12,7 @@ export * from './chain/tezos/contracts/TCFBakerRegistryHelper';
 export * from './chain/tezos/contracts/Tzip7ReferenceTokenHelper';
 export * from './chain/tezos/contracts/TzbtcTokenHelper';
 export * from './identity/tezos/TezosWalletUtil';
+export * from "./identity/tezos/TezosLedgerWallet";
 export * from './identity/tezos/TezosFileWallet';
 export * from './reporting/tezos/TezosConseilClient';
 export * from './reporting/ConseilDataClient';
