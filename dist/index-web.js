@@ -7,7 +7,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const FetchSelector_1 = __importDefault(require("./utils/FetchSelector"));
+const DeviceSelector_1 = __importDefault(require("./utils/DeviceSelector"));
 const LoggerSelector_1 = __importDefault(require("./utils/LoggerSelector"));
+const TezosLedgerWallet_1 = require("./identity/tezos/TezosLedgerWallet");
+DeviceSelector_1.default.setLedgerUtils(TezosLedgerWallet_1.TezosLedgerWallet);
 FetchSelector_1.default.setFetch(window.fetch);
 LoggerSelector_1.default.setLogger(console);
 __export(require("./chain/tezos/TezosContractIntrospector"));
@@ -24,6 +27,7 @@ __export(require("./chain/tezos/contracts/TCFBakerRegistryHelper"));
 __export(require("./chain/tezos/contracts/Tzip7ReferenceTokenHelper"));
 __export(require("./chain/tezos/contracts/TzbtcTokenHelper"));
 __export(require("./identity/tezos/TezosWalletUtil"));
+__export(require("./identity/tezos/TezosLedgerWallet"));
 __export(require("./identity/tezos/TezosFileWallet"));
 __export(require("./reporting/tezos/TezosConseilClient"));
 __export(require("./reporting/ConseilDataClient"));
