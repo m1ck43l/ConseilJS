@@ -40,6 +40,28 @@ export namespace TezosFileWallet {
     }
 
     /**
+     * Saves a wallet to string.
+     * 
+     * @param {Wallet} wallet Wallet object
+     * @param {string} passphrase User-supplied passphrase
+     * @returns {string} Wallet object encrypted
+     */
+    export async function saveWalletString(wallet: Wallet, passphrase: string): Promise<string> {
+        const keys = JSON.stringify(wallet.identities);
+        const salt = await CryptoUtils.generateSaltForPwHash();
+        const encryptedKeys = await CryptoUtils.encryptMessage(keys, passphrase, salt);
+
+        const encryptedWallet: EncryptedWalletVersionOne = {
+            version: '1',
+            salt: TezosMessageUtils.readBufferWithHint(salt, ''),
+            ciphertext: TezosMessageUtils.readBufferWithHint(encryptedKeys, ''),
+            kdf: 'Argon2'
+        };
+
+        return JSON.stringify(encryptedWallet)
+    }
+
+    /**
      * Loads a wallet from a given file.
      * 
      * @param {string} filename Name of file
