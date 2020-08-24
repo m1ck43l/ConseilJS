@@ -46,6 +46,21 @@ var TezosFileWallet;
         });
     }
     TezosFileWallet.saveWallet = saveWallet;
+    function saveWalletString(wallet, passphrase) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const keys = JSON.stringify(wallet.identities);
+            const salt = yield CryptoUtils_1.CryptoUtils.generateSaltForPwHash();
+            const encryptedKeys = yield CryptoUtils_1.CryptoUtils.encryptMessage(keys, passphrase, salt);
+            const encryptedWallet = {
+                version: '1',
+                salt: TezosMessageUtil_1.TezosMessageUtils.readBufferWithHint(salt, ''),
+                ciphertext: TezosMessageUtil_1.TezosMessageUtils.readBufferWithHint(encryptedKeys, ''),
+                kdf: 'Argon2'
+            };
+            return JSON.stringify(encryptedWallet);
+        });
+    }
+    TezosFileWallet.saveWalletString = saveWalletString;
     function loadWallet(filename, passphrase) {
         return __awaiter(this, void 0, void 0, function* () {
             const p = new Promise((resolve, reject) => {
