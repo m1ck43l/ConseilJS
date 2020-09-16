@@ -761,8 +761,8 @@ export namespace TezosNodeWriter {
                 errors = arr.map(r => r.contents)
                     .map(o => o.map(c => c.metadata.operation_result)
                         .filter(r => r.status !== 'applied')
-                        .map(r => `${r.status}: ${r.errors.map(e => `(${e.kind}: ${e.id})`).join(', ')}\n`))
-                    .join('');
+                        .map(r => `${r.status}: ${r.errors.map(e => `(${e.kind}: ${e.id} : ${e['with'] && e['with']['string']? e['with']['string'] : '00'})`).join(', ')}\n`))
+                        .join('');
             }
         } catch (err) {
             if (response.startsWith('Failed to parse the request body: ')) {
