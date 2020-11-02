@@ -27,6 +27,7 @@ export declare namespace TezosMessageUtils {
     function writeSignatureWithHint(sig: string, hint: string): Buffer;
     function readBufferWithHint(b: Buffer | Uint8Array, hint: string): string;
     function writeBufferWithHint(b: string): Buffer;
+    function simpleHash(payload: Buffer, length: number): Buffer;
     function computeOperationHash(signedOpGroup: SignedOperationGroup): string;
     function computeKeyHash(key: Buffer, prefix?: string): string;
     function writePackedData(value: string | number | Buffer, type: string, format?: TezosParameterFormat): string;

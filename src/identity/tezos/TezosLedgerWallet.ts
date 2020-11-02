@@ -74,6 +74,16 @@ export namespace TezosLedgerWallet {
         return TezosMessageUtils.readSignatureWithHint(messageSig, 'edsig');
     }
 
+    export async function signTextHash(derivationPath: string, message: string): Promise<string> {
+        const transport = await TransportInstance.getInstance();
+        const xtz = new TezosLedgerConnector(transport);
+        const messageHash = TezosMessageUtils.simpleHash(Buffer.from(message, 'utf8'), 32);
+        const result = await xtz.signHex(derivationPath, messageHash.toString('hex'));
+        const messageSig = Buffer.from(result, 'hex');
+
+        return TezosMessageUtils.readSignatureWithHint(messageSig, 'edsig');
+    }
+
     export function initLedgerTransport() {
         TransportInstance.transport = null;
     }

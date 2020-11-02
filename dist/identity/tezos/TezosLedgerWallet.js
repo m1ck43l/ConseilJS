@@ -71,6 +71,17 @@ var TezosLedgerWallet;
         });
     }
     TezosLedgerWallet.signText = signText;
+    function signTextHash(derivationPath, message) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const transport = yield TransportInstance.getInstance();
+            const xtz = new TezosLedgerConnector_1.default(transport);
+            const messageHash = TezosMessageUtil_1.TezosMessageUtils.simpleHash(Buffer.from(message, 'utf8'), 32);
+            const result = yield xtz.signHex(derivationPath, messageHash.toString('hex'));
+            const messageSig = Buffer.from(result, 'hex');
+            return TezosMessageUtil_1.TezosMessageUtils.readSignatureWithHint(messageSig, 'edsig');
+        });
+    }
+    TezosLedgerWallet.signTextHash = signTextHash;
     function initLedgerTransport() {
         TransportInstance.transport = null;
     }

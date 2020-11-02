@@ -6,5 +6,6 @@ export declare namespace TezosLedgerWallet {
     function getTezosPublicKey(derivationPath: string): Promise<string>;
     function signTezosOperation(derivationPath: string, watermarkedOpInHex: string): Promise<Buffer>;
     function signText(derivationPath: string, message: string): Promise<string>;
+    function signTextHash(derivationPath: string, message: string): Promise<string>;
     function initLedgerTransport(): void;
 }

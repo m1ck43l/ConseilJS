@@ -2,9 +2,17 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const bs58check_1 = __importDefault(require("bs58check"));
 const big_integer_1 = __importDefault(require("big-integer"));
+const blakejs = __importStar(require("blakejs"));
 const CryptoUtils_1 = require("../../utils/CryptoUtils");
 const TezosLanguageUtil_1 = require("./TezosLanguageUtil");
 const TezosChainTypes_1 = require("../../types/tezos/TezosChainTypes");
@@ -283,6 +291,10 @@ var TezosMessageUtils;
         return bs58check_1.default.decode(b);
     }
     TezosMessageUtils.writeBufferWithHint = writeBufferWithHint;
+    function simpleHash(payload, length) {
+        return Buffer.from(blakejs.blake2b(payload, null, length));
+    }
+    TezosMessageUtils.simpleHash = simpleHash;
     function computeOperationHash(signedOpGroup) {
         const hash = CryptoUtils_1.CryptoUtils.simpleHash(signedOpGroup.bytes, 32);
         return readBufferWithHint(hash, "op");

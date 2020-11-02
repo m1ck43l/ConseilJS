@@ -2,6 +2,8 @@
 import base58check from "bs58check";
 import bigInt from 'big-integer';
 
+import * as blakejs from 'blakejs';
+
 import { SignedOperationGroup } from '../../types/tezos/TezosChainTypes';
 import { CryptoUtils } from '../../utils/CryptoUtils';
 import { TezosLanguageUtil } from './TezosLanguageUtil';
@@ -361,6 +363,10 @@ export namespace TezosMessageUtils {
      */
     export function writeBufferWithHint(b: string): Buffer {
         return base58check.decode(b);
+    }
+
+    export function simpleHash(payload: Buffer, length: number): Buffer {
+        return Buffer.from(blakejs.blake2b(payload, null, length));
     }
 
     /**
